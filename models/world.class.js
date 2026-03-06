@@ -2,7 +2,13 @@ class World {
     character = new Character();
     enemies = [new Chicken(), new Chicken(), new Chicken()];
     clouds = [new Cloud()];
-    backgroundObjects = [new BackgroundObject(0, 70,)];
+    backgroundObjects = [
+        new BackgroundObject(ImageHub.LAYERS.air[0], 0),
+        new BackgroundObject(ImageHub.LAYERS.third_layer[0], 0),
+        new BackgroundObject(ImageHub.LAYERS.second_layer[0], 0),
+        new BackgroundObject(ImageHub.LAYERS.first_layer[0], 0),
+    ];
+
     canvas;
     ctx;
 
@@ -19,7 +25,6 @@ class World {
         this.addObjectsToMap(this.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
-
 
         let self = this;
         requestAnimationFrame(function () {

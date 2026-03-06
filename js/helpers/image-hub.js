@@ -94,7 +94,7 @@ class ImageHub {
         ],
         second_layer: [
             "img/5_background/layers/2_second_layer/1.png",
-            "img/5_background/layers/2_second_layer/.png",
+            "img/5_background/layers/2_second_layer/2.png",
             "img/5_background/layers/2_second_layer/full.png"
         ],
         third_layer: [
