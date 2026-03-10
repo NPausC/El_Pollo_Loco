@@ -1,30 +1,41 @@
-class World {
-    character = new Character();
-    enemies = [new Chicken(), new Chicken(), new Chicken()];
-    clouds = [new Cloud()];
-    backgroundObjects = [
-        new BackgroundObject(ImageHub.LAYERS.air[0], 0),
-        new BackgroundObject(ImageHub.LAYERS.third_layer[0], 0),
-        new BackgroundObject(ImageHub.LAYERS.second_layer[0], 0),
-        new BackgroundObject(ImageHub.LAYERS.first_layer[0], 0),
-    ];
+import { ImageHub } from "../js/helpers/image-hub.js";
+import { BackgroundObject } from "./background-object.class.js";
+import { Character } from "./charakter.class.js";
+import { Chicken } from "./chicken.class.js";
+import { Cloud } from "./cloud.class.js";
+import { Keyboard } from "./keyboard.class.js";
 
+export class World {
+    character = new Character();
+    level;
     canvas;
     ctx;
+    keyboard = Keyboard;
+    camera_x = 0;
 
-    constructor(canvas) {
+    constructor(canvas, level) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
+        this.level = level;
+        this.setWorld();
         this.draw();
+    }
+
+    setWorld() {
+        this.character.world = this;
     }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.addObjectsToMap(this.backgroundObjects);
-        this.addObjectsToMap(this.clouds);
+        this.ctx.translate(this.camera_x, 0);
+
+        this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.enemies);
+
+        this.ctx.translate(-this.camera_x, 0);
 
         let self = this;
         requestAnimationFrame(function () {
@@ -39,6 +50,25 @@ class World {
     }
 
     addToMap(mo) {
+        if (mo.otherDirection) {
+            this.flipImage(mo);
+        }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        if (mo.otherDirection) {
+            this.flipImageBack(mo);
+        }
+    }
+
+    flipImage(mo) {
+        this.ctx.save();
+        // verschiebt das Canvas um die doppelte X-Position + Breite
+        this.ctx.translate(mo.width, 0);
+        this.ctx.scale(-1, 1);
+        mo.x = mo.x * -1; // X-Koordinate umkehren
+    }
+
+    flipImageBack(mo) {
+        mo.x = mo.x * -1; // X-Koordinate zurücksetzen
+        this.ctx.restore();
     }
 }

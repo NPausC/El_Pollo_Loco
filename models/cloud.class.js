@@ -1,4 +1,8 @@
-class Cloud extends MovableObject {
+import { ImageHub } from "../js/helpers/image-hub.js";
+import { IntervalHub } from "../js/helpers/intervall-hub.js";
+import { MovableObject } from "./movable-objects.class.js";
+
+export class Cloud extends MovableObject {
     y = 20;
     height = 250;
     width = 250;
@@ -15,5 +19,5 @@ class Cloud extends MovableObject {
 
     animate = () => {
         this.moveLeft();
-    }
+    };
 }

@@ -1,4 +1,4 @@
-class IntervalHub {
+export class IntervalHub {
     // Speichert alle registrierten Interval-IDs
     static allIntervals = [];
 

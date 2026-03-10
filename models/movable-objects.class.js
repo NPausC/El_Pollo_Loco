@@ -1,4 +1,6 @@
-class MovableObject {
+import { BackgroundObject } from "./background-object.class.js";
+
+export class MovableObject {
     x = 120;
     y = 250;
     img;
@@ -6,7 +8,8 @@ class MovableObject {
     width = 100;
     imageCache = {};
     currentImage = 0;
-    speed = 0.15
+    speed = 0.15;
+    otherDirecten = false;
 
     loadImage(path) {
         this.img = new Image();
@@ -21,13 +24,15 @@ class MovableObject {
         });
     }
 
-    moveRight() {}
+    moveRight() {
+        this.x += this.speed;
+    }
 
-    moveLeft(){
-            this.x -= this.speed;
-        }
+    moveLeft() {
+        this.x -= this.speed;
+    }
 
-        playAnimation(images) {
+    playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];

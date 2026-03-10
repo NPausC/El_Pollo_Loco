@@ -1,13 +1,10 @@
-import { ImageHub } from "../js/helpers/image-hub.js";
-import { IntervalHub } from "../js/helpers/intervall-hub.js";
-import { MovableObject } from "./movable-objects.class.js";
+import { MovableObject } from "./movable-objects.class";
 
-export class Chicken extends MovableObject {
+export class Endboss extends MovableObject {
     x = 200 + Math.random() * 500;
     y = 330;
     height = 100;
     width = 100;
-    speed = 0.5 + Math.random() * 0.25;
 
     constructor() {
         super();

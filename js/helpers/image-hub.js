@@ -1,4 +1,4 @@
-class ImageHub {
+export class ImageHub {
     static CHARACTER = {
         idle: [
             "img/2_character_pepe/1_idle/idle/I-1.png",
@@ -99,11 +99,13 @@ class ImageHub {
         ],
         third_layer: [
             "img/5_background/layers/3_third_layer/1.png",
-            "img/5_background/layers/3_third_layer/1.png",
+            "img/5_background/layers/3_third_layer/2.png",
             "img/5_background/layers/3_third_layer/full.png",
         ],
         air: [
             "img/5_background/layers/air.png",
         ]
+
+        
 
 }}
