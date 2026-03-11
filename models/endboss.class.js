@@ -10,10 +10,5 @@ export class Endboss extends MovableObject {
     constructor() {
         super();
         this.loadImage(ImageHub.ENDBOSS.walk[0]);
-        this.loadImages(ImageHub.ENDBOSS.walk);
     } 
-
-    // hier kommt die Anmiation
-    animate = () => {
     };
-}
