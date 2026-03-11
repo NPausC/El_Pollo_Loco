@@ -1,6 +1,6 @@
 import { Keyboard } from "../models/keyboard.class.js";
 import { World } from "../models/world.class.js";
-import { IntervalHub } from "./helpers/intervall-hub.js";
+import { IntervalHub } from "./helpers/interval-hub.js";
 import { level1 } from "./levels/level1.js";
 
 let canvas;
