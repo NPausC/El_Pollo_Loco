@@ -7,7 +7,7 @@ export class Character extends MovableObject {
     currentImage = 0;
 
     x = 0;
-    y = 150;
+    y = 80;
     height = 280;
     width = 150;
     speed = 10;
@@ -24,6 +24,7 @@ export class Character extends MovableObject {
         this.loadImages(ImageHub.CHARACTER.walk);
 
         IntervalHub.startInterval(this.animate, 1000 / 60);
+        this.applyGravity();
     }
 
     // Arrow-Syntax für HUB
