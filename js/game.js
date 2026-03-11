@@ -7,11 +7,13 @@ let canvas;
 let world;
 
 function init() {
+
+    //IntervalHub.stopAllIntervals();
     canvas = document.getElementById("canvas");
 
     Keyboard.addEvents();
 
-    IntervalHub.stopAllIntervals();
+    
     world = new World(canvas, level1);
     window.world = world;
 }

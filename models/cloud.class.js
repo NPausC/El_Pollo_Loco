@@ -11,10 +11,9 @@ export class Cloud extends MovableObject {
     constructor() {
         super();
         this.loadImage(ImageHub.LAYERS.clouds[0]);
-
         this.x = Math.random() * 500;
-
-        IntervalHub.startInterval(this.animate, 1000 / 60);
+        // FIX: Arrow-Function nutzen!
+        IntervalHub.startInterval(() => this.animate(), 1000 / 60);
     }
 
     animate = () => {

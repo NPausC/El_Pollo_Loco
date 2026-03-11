@@ -11,13 +11,11 @@ export class Chicken extends MovableObject {
 
     constructor() {
         super();
-
         this.loadImage(ImageHub.CHICKEN.normal_walk[0]);
         this.loadImages(ImageHub.CHICKEN.normal_walk);
 
-        IntervalHub.startInterval(this.animate, 100);
-
-        IntervalHub.startInterval(this.move, 1000 / 60);
+        IntervalHub.startInterval(() => this.animate(), 200);
+        IntervalHub.startInterval(() => this.move(), 1000 / 60);
     }
 
     animate = () => {
@@ -26,10 +24,5 @@ export class Chicken extends MovableObject {
 
     move = () => {
         this.moveLeft();
-    };
-
-    // Arrow-Syntax für den Hub nutzen
-    animate = () => {
-        this.playAnimation(ImageHub.CHICKEN.normal_walk);
     };
 }

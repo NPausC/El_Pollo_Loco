@@ -2,10 +2,12 @@ import { ImageHub } from "../js/helpers/image-hub.js";
 import { BackgroundObject } from "./background-object.class.js";
 import { Character } from "./charakter.class.js";
 import { Chicken } from "./chicken.class.js";
+import { Endboss } from "./endboss.class.js";
 import { Cloud } from "./cloud.class.js";
 import { Keyboard } from "./keyboard.class.js";
 
 export class World {
+
     character = new Character();
     level;
     canvas;
