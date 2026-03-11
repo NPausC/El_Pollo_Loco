@@ -9,7 +9,7 @@ export class MovableObject {
     imageCache = {};
     currentImage = 0;
     speed = 0.15;
-    otherDirecten = false;
+    otherDirection = false;
 
     loadImage(path) {
         this.img = new Image();

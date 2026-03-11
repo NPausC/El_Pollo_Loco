@@ -1,4 +1,5 @@
 import { Chicken } from "/models/chicken.class.js";
+import { Endboss } from "/models/endboss.class.js";
 import { Cloud } from "/models/cloud.class.js";
 import { BackgroundObject } from "/models/background-object.class.js";
 import { ImageHub } from "../helpers/image-hub.js";

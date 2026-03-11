@@ -1,32 +1,19 @@
-import { MovableObject } from "./movable-objects.class";
+import { ImageHub } from "../js/helpers/image-hub.js";
+import { MovableObject } from "./movable-objects.class.js";
 
 export class Endboss extends MovableObject {
-    x = 200 + Math.random() * 500;
-    y = 330;
-    height = 100;
-    width = 100;
+    x = 3200;
+    y = 55;
+    height = 400;
+    width = 250;
 
     constructor() {
         super();
+        this.loadImage(ImageHub.ENDBOSS.walk[0]);
+        this.loadImages(ImageHub.ENDBOSS.walk);
+    } 
 
-        this.loadImage(ImageHub.CHICKEN.normal_walk[0]);
-        this.loadImages(ImageHub.CHICKEN.normal_walk);
-
-        IntervalHub.startInterval(this.animate, 100);
-
-        IntervalHub.startInterval(this.move, 1000 / 60);
-    }
-
+    // hier kommt die Anmiation
     animate = () => {
-        this.playAnimation(ImageHub.CHICKEN.normal_walk);
-    };
-
-    move = () => {
-        this.moveLeft();
-    };
-
-    // Arrow-Syntax für den Hub nutzen
-    animate = () => {
-        this.playAnimation(ImageHub.CHICKEN.normal_walk);
     };
 }
