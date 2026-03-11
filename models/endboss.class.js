@@ -3,7 +3,7 @@ import { IntervalHub } from "../js/helpers/interval-hub.js";
 import { MovableObject } from "./movable-objects.class.js";
 
 export class Endboss extends MovableObject {
-    x = 3000
+    x = 2900;
     y = 140;
     height = 300;
     width = 300;
@@ -24,7 +24,7 @@ export class Endboss extends MovableObject {
         this.playAnimation(ImageHub.ENDBOSS.walk);
     };
 
-move = () => {
+    move = () => {
         if (this.otherDirection) {
             this.moveRight();
         } else {
@@ -35,12 +35,9 @@ move = () => {
     };
 
     checkPatrolLimits() {
-        // Wenn zu weit links -> nach rechts umdrehen
         if (this.x <= this.limit_left) {
             this.otherDirection = true;
-        } 
-        // Wenn zu weit rechts -> nach links umdrehen
-        else if (this.x >= this.limit_right) {
+        } else if (this.x >= this.limit_right) {
             this.otherDirection = false;
         }
     }

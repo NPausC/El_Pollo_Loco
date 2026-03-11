@@ -4,52 +4,63 @@ import { Keyboard } from "./keyboard.class.js";
 import { MovableObject } from "./movable-objects.class.js";
 
 export class Character extends MovableObject {
-    currentImage = 0;
-
     x = 0;
-    y = 80;
+    y = 150;
     height = 280;
     width = 150;
     speed = 10;
-
     world;
 
     constructor() {
         super();
-
-        //lädt die erste Grafik
-        this.loadImage(ImageHub.CHARACTER.walk[0]);
-
-        //lädt alle Laufbilder in den imageCache
-        this.loadImages(ImageHub.CHARACTER.walk);
-
-        IntervalHub.startInterval(this.animate, 1000 / 60);
+        this.loadCharacterImages();
         this.applyGravity();
+
+        // Trennung der Bewegung und Animation in zwei Intervalle
+        IntervalHub.startInterval(() => this.moveCharacter(), 1000 / 60);
+        IntervalHub.startInterval(() => this.animateCharacter(), 100);
     }
 
-    // Arrow-Syntax für HUB
-    animate = () => {
-        // 1. Logik für die Bewegung (x-Koordinate)
+    loadCharacterImages() {
+        this.loadImage(ImageHub.CHARACTER.walk[0]);
+        this.loadImages(ImageHub.CHARACTER.walk);
+        this.loadImages(ImageHub.CHARACTER.jump);
+        this.loadImages(ImageHub.CHARACTER.idle);
+    }
+
+    // 1. Logik für die Bewegung (Tastenabfrage)
+    moveCharacter = () => {
+        // Rechts rum
         if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
-            this.world.camera_x = -this.x + 200;
             this.otherDirection = false;
         }
 
+        // Links rum
         if (Keyboard.LEFT && this.x > 0) {
             this.moveLeft();
-            this.world.camera_x = -this.x + 200;
             this.otherDirection = true;
         }
 
-        // 2. Logik für die Animation (Bilderwechsel)
-        if (Keyboard.RIGHT || Keyboard.LEFT) {
-            this.playAnimation(ImageHub.CHARACTER.walk);
-        } else {
-            // Zeigt das Standbild, wenn er nichts tut
-            this.loadImage(ImageHub.CHARACTER.walk[0]);
+        // springen
+        if (Keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
         }
+
+        // Kamera folgt dem Charakter
+        this.world.camera_x = -this.x + 100;
     };
 
-    jump() {}
+    animateCharacter = () => {
+        if (this.isAboveGround()) {
+            // Während des Springens
+            this.playAnimation(ImageHub.CHARACTER.jump);
+        } else if (Keyboard.RIGHT || Keyboard.LEFT) {
+            // Während des Laufens
+            this.playAnimation(ImageHub.CHARACTER.walk);
+        } else {
+            // stehen
+            this.playAnimation(ImageHub.CHARACTER.idle);
+        }
+    };
 }

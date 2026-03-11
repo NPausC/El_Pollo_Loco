@@ -7,7 +7,6 @@ import { Cloud } from "./cloud.class.js";
 import { Keyboard } from "./keyboard.class.js";
 
 export class World {
-
     character = new Character();
     level;
     canvas;
@@ -63,14 +62,13 @@ export class World {
 
     flipImage(mo) {
         this.ctx.save();
-        // verschiebt das Canvas um die doppelte X-Position + Breite
         this.ctx.translate(mo.width, 0);
         this.ctx.scale(-1, 1);
-        mo.x = mo.x * -1; // X-Koordinate umkehren
+        mo.x = mo.x * -1;
     }
 
     flipImageBack(mo) {
-        mo.x = mo.x * -1; // X-Koordinate zurücksetzen
+        mo.x = mo.x * -1;
         this.ctx.restore();
     }
 }
