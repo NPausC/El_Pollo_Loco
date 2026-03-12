@@ -15,6 +15,12 @@ export class Character extends MovableObject {
         super();
         this.loadCharacterImages();
         this.applyGravity();
+        this.offset = {
+            top: 120,
+            left: 30,
+            right: 40,
+            bottom: 10,
+        };
 
         // Trennung der Bewegung und Animation in zwei Intervalle
         IntervalHub.startInterval(() => this.moveCharacter(), 1000 / 60);
@@ -26,9 +32,11 @@ export class Character extends MovableObject {
         this.loadImages(ImageHub.CHARACTER.walk);
         this.loadImages(ImageHub.CHARACTER.jump);
         this.loadImages(ImageHub.CHARACTER.idle);
+        this.loadImages(ImageHub.CHARACTER.hurt);
+        this.loadImages(ImageHub.CHARACTER.dead);
     }
 
-    // 1. Logik für die Bewegung (Tastenabfrage)
+    // Logik für die Bewegung
     moveCharacter = () => {
         // Rechts rum
         if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
@@ -52,14 +60,15 @@ export class Character extends MovableObject {
     };
 
     animateCharacter = () => {
-        if (this.isAboveGround()) {
-            // Während des Springens
+        if (this.isDead()) {
+            this.playAnimation(ImageHub.CHARACTER.dead);
+        } else if (this.isHurt()) {
+            this.playAnimation(ImageHub.CHARACTER.hurt);
+        } else if (this.isAboveGround()) {
             this.playAnimation(ImageHub.CHARACTER.jump);
         } else if (Keyboard.RIGHT || Keyboard.LEFT) {
-            // Während des Laufens
             this.playAnimation(ImageHub.CHARACTER.walk);
         } else {
-            // stehen
             this.playAnimation(ImageHub.CHARACTER.idle);
         }
     };

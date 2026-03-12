@@ -45,8 +45,8 @@ export class ImageHub {
         ],
         hurt: [
             "img/2_character_pepe/4_hurt/H-41.png",
-            "img/2_character_pepe/4_hurt/H-41.png",
-            "img/2_character_pepe/4_hurt/H-41.png",
+            "img/2_character_pepe/4_hurt/H-42.png",
+            "img/2_character_pepe/4_hurt/H-43.png",
         ],
         dead: [
             "img/2_character_pepe/5_dead/D-51.png",
@@ -142,4 +142,44 @@ export class ImageHub {
             "img/4_enemie_boss_chicken/5_dead/G26.png",
         ],
     };
+
+    static STATUSBAR = {
+        coin: [
+            "img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png",
+            "img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png",
+            "img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png",
+            "img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png",
+            "img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png",
+            "img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png",
+        ],
+
+        health: [
+            "img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png",
+            "img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png",
+            "img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png",
+            "img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png",
+            "img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png",
+            "img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png",
+        ],
+
+        bottle: [
+            "img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png",
+            "img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/20.png",
+            "img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/40.png",
+            "img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/60.png",
+            "img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/80.png",
+            "img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png",
+        ],
+
+        endboss: [
+            "img/7_statusbars/2_statusbar_endboss/blue/blue0.png",
+            "img/7_statusbars/2_statusbar_endboss/blue/blue20.png",
+            "img/7_statusbars/2_statusbar_endboss/blue/blue40.png",
+            "img/7_statusbars/2_statusbar_endboss/blue/blue60.png",
+            "img/7_statusbars/2_statusbar_endboss/blue/blue80.png",
+            "img/7_statusbars/2_statusbar_endboss/blue/blue100.png",
+        ],
+
+        
+    }
 }
