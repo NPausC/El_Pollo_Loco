@@ -3,13 +3,13 @@ import { IntervalHub } from "../js/helpers/interval-hub.js";
 import { MovableObject } from "./movable-objects.class.js";
 
 export class Endboss extends MovableObject {
-    x = 2900;
+    x = 2500;
     y = 140;
     height = 300;
     width = 300;
     speed = 0.5 + Math.random() * 0.5;
-    limit_left = 2900;
-    limit_right = 3200;
+    limit_left = 2200;
+    limit_right = 2700;
 
     constructor() {
         super();
