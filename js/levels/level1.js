@@ -6,9 +6,9 @@ import { ImageHub } from "../helpers/image-hub.js";
 import { Level } from "../../models/level.class.js";
 
 export const level1 = new Level(
-    [new Chicken(), new Chicken(), new Chicken(), new Endboss()],
+    [new Chicken(), new Endboss()],
 
-    [new Cloud()],
+    [new Cloud(), new Cloud(),new Cloud(),new Cloud(),],
 
     [
         new BackgroundObject(ImageHub.LAYERS.air[0], -719),

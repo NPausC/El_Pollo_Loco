@@ -25,6 +25,8 @@ export class World {
         IntervalHub.startInterval(() => {
             this.checkCollisions();
         }, 100);
+        this.spawnRandomChicken();
+
         this.draw();
     }
 
@@ -56,13 +58,37 @@ export class World {
         this.level.enemies.forEach((enemy) => {
             // Kollisionsprüfung & Pepe ist gerade nicht in der Unverwundbarkeitsphase
             if (this.character.isColliding(enemy) && !this.character.isHurt()) {
-                 // hier wird Energie wird abgezogen
+                // hier wird Energie wird abgezogen
                 this.character.hit();
                 this.healthBar.setPercentage(this.character.energy);
                 // Konsole - funktioniert
-                console.log("Autsch! Energie übrig:", this.character.energy);
+                console.log("Autsch", this.character.energy);
             }
         });
+    }
+
+    spawnChicken() {
+        let spawnPosition;
+        if (this.character.x < 1200) {
+               spawnPosition = 1800;
+         } else {
+            spawnPosition = 2500; 
+            }
+
+        let xWithOffset = spawnPosition + Math.random() * 300;
+        let chicken = new Chicken(xWithOffset);
+        this.level.enemies.push(chicken);
+    }
+
+    spawnRandomChicken() {
+        if (!this.character.isDead()) {
+            this.spawnChicken();
+            let nextSpawn = 1000 + Math.random() * 3000;
+
+            setTimeout(() => {
+                this.spawnRandomChicken();
+            }, nextSpawn);
+        }
     }
 
     addObjectsToMap(objects) {
@@ -78,13 +104,9 @@ export class World {
 
         mo.draw(this.ctx);
 
-        // Fehlersuche start
         if (mo instanceof StatusBar) {
-            console.log("StatusBar Image:", mo.img);
-            console.log("StatusBar Position:", mo.x, mo.y, mo.width, mo.height);
         }
-        // Fehlersuche ende
-
+        
         if (
             mo instanceof Character ||
             mo instanceof Chicken ||
