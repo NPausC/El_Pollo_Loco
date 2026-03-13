@@ -21,14 +21,20 @@ export class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             } else {
-                this.y = 150;
-                this.speedY = 0;
+                if (this.constructor.name === "Character") {
+                    this.y = 150;
+                    this.speedY = 0;
+                }
             }
         }, 1000 / 25);
     }
 
     isAboveGround() {
-        return this.y < 150;
+        if (this.constructor.name === "ThrowableObject") {
+            return this.y < 360;
+        } else {
+            return this.y < 150;
+        }
     }
 
     jump() {

@@ -5,12 +5,14 @@ import { Character } from "./charakter.class.js";
 import { Chicken } from "./chicken.class.js";
 import { Endboss } from "./endboss.class.js";
 import { Cloud } from "./cloud.class.js";
+import { ThrowableObject } from "./throwable-object.class.js";
 import { Keyboard } from "./keyboard.class.js";
 import { StatusBar } from "./status-bar.class.js";
 
 export class World {
     character = new Character();
     healthBar = new StatusBar();
+    throwableObjects = [];
     level;
     canvas;
     ctx;
@@ -24,6 +26,10 @@ export class World {
         this.setWorld();
         IntervalHub.startInterval(() => {
             this.checkCollisions();
+        }, 100);
+        IntervalHub.startInterval(() => {
+            this.checkCollisions();
+            this.checkThrowObjects();
         }, 100);
         this.spawnRandomChicken();
 
@@ -43,6 +49,8 @@ export class World {
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableObjects);
 
         this.ctx.translate(-this.camera_x, 0);
 
@@ -56,24 +64,33 @@ export class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            // Kollisionsprüfung & Pepe ist gerade nicht in der Unverwundbarkeitsphase
             if (this.character.isColliding(enemy) && !this.character.isHurt()) {
-                // hier wird Energie wird abgezogen
                 this.character.hit();
                 this.healthBar.setPercentage(this.character.energy);
-                // Konsole - funktioniert
                 console.log("Autsch", this.character.energy);
             }
         });
     }
 
+    checkThrowObjects() {
+        if (this.keyboard.D) {
+            let bottle = new ThrowableObject(
+                this.character.x + 100,
+                this.character.y + 100,
+            );
+            this.throwableObjects.push(bottle);
+
+            this.keyboard.D = false;
+        }
+    }
+
     spawnChicken() {
         let spawnPosition;
         if (this.character.x < 1200) {
-               spawnPosition = 1800;
-         } else {
-            spawnPosition = 2500; 
-            }
+            spawnPosition = 1800;
+        } else {
+            spawnPosition = 2500;
+        }
 
         let xWithOffset = spawnPosition + Math.random() * 300;
         let chicken = new Chicken(xWithOffset);
@@ -106,7 +123,7 @@ export class World {
 
         if (mo instanceof StatusBar) {
         }
-        
+
         if (
             mo instanceof Character ||
             mo instanceof Chicken ||

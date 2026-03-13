@@ -179,7 +179,28 @@ export class ImageHub {
             "img/7_statusbars/2_statusbar_endboss/blue/blue80.png",
             "img/7_statusbars/2_statusbar_endboss/blue/blue100.png",
         ],
+    }
 
-        
+    static BOTTLE = {
+        rotation: [
+            "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
+            "img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
+            "img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
+            "img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png",
+        ],
+
+        splash: [
+            "img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
+            "img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
+            "img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
+            "img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
+            "img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
+            "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
+        ],
+
+        onground: [
+            "img/6_salsa_bottle/1_salsa_bottle_on_ground.png",
+            "img/6_salsa_bottle/1_salsa_bottle_on_ground.png",
+        ]
     }
 }
