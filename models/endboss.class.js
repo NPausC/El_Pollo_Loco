@@ -3,6 +3,9 @@ import { IntervalHub } from "../js/helpers/interval-hub.js";
 import { MovableObject } from "./movable-objects.class.js";
 
 export class Endboss extends MovableObject {
+    energy = 100;
+    isDead = false;
+    isHurtStatus = false;
     x = 2950;
     y = 140;
     height = 300;
@@ -17,6 +20,15 @@ export class Endboss extends MovableObject {
         this.loadImages(ImageHub.ENDBOSS.walk);
         this.loadImages(ImageHub.ENDBOSS.alert);
         this.loadImages(ImageHub.ENDBOSS.attack);
+        this.loadImages(ImageHub.ENDBOSS.hurt);
+        this.loadImages(ImageHub.ENDBOSS.dead);
+
+        this.offset = {
+            top: 120,
+            left: 50,
+            right: 50,
+            bottom: 30,
+        };
 
         this.animate();
 
@@ -29,7 +41,11 @@ export class Endboss extends MovableObject {
         IntervalHub.startInterval(() => {
             let distance = Math.abs(this.x - this.world.character.x);
 
-            if (distance < 200) {
+            if (this.isDead) {
+                this.playAnimation(ImageHub.ENDBOSS.dead);
+            } else if (this.isHurtStatus) {
+                this.playAnimation(ImageHub.ENDBOSS.hurt);
+            } else if (distance < 200) {
                 this.playAnimation(ImageHub.ENDBOSS.attack);
             } else if (this.hadFirstContact) {
                 this.playAnimation(ImageHub.ENDBOSS.alert);
@@ -53,6 +69,22 @@ export class Endboss extends MovableObject {
             this.otherDirection = true;
         } else if (this.x >= this.limit_right) {
             this.otherDirection = false;
+        }
+    }
+
+    bossHit() {
+        if (this.energy > 0) {
+            this.energy -= 10;
+            this.world.endbossBar.setPercentage(this.energy);
+
+            if (this.energy <= 50) {
+                this.isHurtStatus = true;
+            }
+
+            if (this.energy <= 0) {
+                this.energy = 0;
+                this.isDead = true;
+            }
         }
     }
 }

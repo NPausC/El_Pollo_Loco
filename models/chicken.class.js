@@ -14,8 +14,7 @@ export class Chicken extends MovableObject {
         this.loadImage(ImageHub.CHICKEN.normal_walk[0]);
         this.loadImages(ImageHub.CHICKEN.normal_walk);
 
-if (x !== undefined) {
-
+        if (x !== undefined) {
             this.x = x;
         } else {
             this.x = 500 + Math.random() * 3000;
@@ -26,8 +25,7 @@ if (x !== undefined) {
         IntervalHub.startInterval(() => this.move(), 1000 / 60);
     }
 
-animate = () => {
-
+    animate = () => {
         if (!this.isDead) {
             this.playAnimation(ImageHub.CHICKEN.normal_walk);
         } else {
@@ -42,16 +40,11 @@ animate = () => {
     };
 
     die() {
-    this.isDead = true;
-    this.loadImage(ImageHub.CHICKEN.normal_dead[0]);
-    this.speed = 0;
-    setTimeout(() => {
-        this.y = -1000;
-    }, 2000);
+        this.isDead = true;
+        this.loadImage(ImageHub.CHICKEN.normal_dead[0]);
+        this.speed = 0;
+        setTimeout(() => {
+            this.y = -1000;
+        }, 2000);
+    }
 }
-}
-
-
-
-
-

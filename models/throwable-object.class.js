@@ -17,16 +17,17 @@ export class ThrowableObject extends MovableObject {
     }
 
     throw() {
-        this.speedY = 30;
+        this.speedY = 15;
         this.applyGravity();
 
         let throwInterval = setInterval(() => {
             if (this.broken) {
                 clearInterval(throwInterval);
+                this.speedY = 0;
             } else if (this.y >= 350) {
                 this.splash();
             } else {
-                this.x += 10;
+                this.x += 8;
                 this.playAnimation(ImageHub.BOTTLE.rotation);
             }
         }, 25);

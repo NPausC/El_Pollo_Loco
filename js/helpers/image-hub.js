@@ -197,6 +197,22 @@ export class ImageHub {
         onground: [
             "img/6_salsa_bottle/1_salsa_bottle_on_ground.png",
             "img/6_salsa_bottle/2_salsa_bottle_on_ground.png",
+        ],
+        endboss: [
+            "img/7_statusbars/2_statusbar_endboss/orange/orange0.png",
+            "img/7_statusbars/2_statusbar_endboss/orange/orange20.png",
+            "img/7_statusbars/2_statusbar_endboss/orange/orange40.png",
+            "img/7_statusbars/2_statusbar_endboss/orange/orange60.png",
+            "img/7_statusbars/2_statusbar_endboss/orange/orange80.png",
+            "img/7_statusbars/2_statusbar_endboss/orange/orange100.png",
+        ],
+    }
+
+    static COIN = {
+
+        coin: [
+            "img/8_coin/coin_1.png",
+            "img/8_coin/coin_2.png",
         ]
     }
 }
