@@ -8,11 +8,16 @@ import { Cloud } from "./cloud.class.js";
 import { ThrowableObject } from "./throwable-object.class.js";
 import { Keyboard } from "./keyboard.class.js";
 import { StatusBar } from "./status-bar.class.js";
+import { BottleBar } from "./bottle-bar.class.js";
+import { Bottle } from "./bottle.class.js";
 
 export class World {
     character = new Character();
     healthBar = new StatusBar();
     throwableObjects = [];
+    bottleBar = new BottleBar();
+    collectibleBottles = [];
+    collectedBottles = 0;
     level;
     canvas;
     ctx;
@@ -26,18 +31,23 @@ export class World {
         this.setWorld();
         IntervalHub.startInterval(() => {
             this.checkCollisions();
-        }, 100);
-        IntervalHub.startInterval(() => {
-            this.checkCollisions();
             this.checkThrowObjects();
+            this.checkEndbossProximity();
+            this.clearOldEnemies();
+            this.checkBottleCollisions();
         }, 100);
-        this.spawnRandomChicken();
 
+        this.spawnRandomChicken();
+        this.spawnBottles();
+        this.draw();
         this.draw();
     }
 
     setWorld() {
         this.character.world = this;
+        this.level.enemies.forEach((enemy) => {
+            enemy.world = this;
+        });
     }
 
     draw() {
@@ -45,8 +55,10 @@ export class World {
 
         this.ctx.translate(this.camera_x, 0);
 
+        this.addObjectsToMap(this.collectibleBottles);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.collectibleBottles);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.enemies);
@@ -55,6 +67,7 @@ export class World {
         this.ctx.translate(-this.camera_x, 0);
 
         this.addToMap(this.healthBar);
+        this.addToMap(this.bottleBar);
 
         let self = this;
         requestAnimationFrame(function () {
@@ -64,24 +77,83 @@ export class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !this.character.isHurt()) {
-                this.character.hit();
-                this.healthBar.setPercentage(this.character.energy);
-                console.log("Autsch", this.character.energy);
+            if (this.character.isColliding(enemy)) {
+                if (enemy instanceof Endboss) {
+                    if (!this.character.isHurt()) {
+                        this.character.hit(10);
+                        this.healthBar.setPercentage(this.character.energy);
+                        console.log(
+                            "BOSS-TREFFER! Energie:",
+                            this.character.energy,
+                        );
+                    }
+                } else if (
+                    this.character.isAboveGround() &&
+                    this.character.speedY < 0 &&
+                    !enemy.isDead
+                ) {
+                    enemy.die();
+                    this.character.jump();
+                } else if (!enemy.isDead && !this.character.isHurt()) {
+                    this.character.hit(2);
+                    this.healthBar.setPercentage(this.character.energy);
+                }
+            }
+        });
+    }
+
+    checkEndbossProximity() {
+        this.level.enemies.forEach((enemy) => {
+            if (enemy instanceof Endboss) {
+                if (Math.abs(this.character.x - enemy.x) < 500) {
+                    enemy.hadFirstContact = true;
+                }
             }
         });
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
+        if (this.keyboard.D && this.collectedBottles > 0) {
             let bottle = new ThrowableObject(
                 this.character.x + 100,
                 this.character.y + 100,
             );
             this.throwableObjects.push(bottle);
 
+            this.collectedBottles -= 10;
+
+            this.bottleBar.setPercentage(this.collectedBottles);
+
             this.keyboard.D = false;
         }
+    }
+
+    checkItemCollisions() {
+        this.level.collectibleObjects.forEach((item, index) => {
+            if (this.character.isColliding(item)) {
+                if (item instanceof Bottle) {
+                    this.collectBottle(index);
+                } else if (item instanceof Coin) {
+                    this.collectCoin(index);
+                }
+            }
+        });
+    }
+
+    checkBottleCollisions() {
+        this.collectibleBottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                if (this.collectedBottles < 100) {
+                    this.collectedBottles += 10;
+                    this.bottleBar.setPercentage(this.collectedBottles);
+                    this.collectibleBottles.splice(index, 1);
+                    console.log(
+                        "Flasche gesammelt! Vorrat:",
+                        this.collectedBottles / 10,
+                    );
+                }
+            }
+        });
     }
 
     spawnChicken() {
@@ -94,17 +166,32 @@ export class World {
 
         let xWithOffset = spawnPosition + Math.random() * 300;
         let chicken = new Chicken(xWithOffset);
+
+        chicken.world = this;
         this.level.enemies.push(chicken);
     }
 
     spawnRandomChicken() {
-        if (!this.character.isDead()) {
-            this.spawnChicken();
-            let nextSpawn = 1000 + Math.random() * 3000;
+        let currentChickenCount = this.level.enemies.filter(
+            (e) => e instanceof Chicken,
+        ).length;
 
-            setTimeout(() => {
-                this.spawnRandomChicken();
-            }, nextSpawn);
+        if (!this.character.isDead() && currentChickenCount < 10) {
+            this.spawnChicken();
+        }
+
+        let nextSpawn = 2500 + Math.random() * 2500;
+        setTimeout(() => {
+            this.spawnRandomChicken();
+        }, nextSpawn);
+    }
+
+    spawnBottles() {
+        for (let i = 0; i < 10; i++) {
+            let x = 400 + i * 450 + Math.random() * 200;
+            let y = 330 + Math.random() * 40;
+
+            this.collectibleBottles.push(new Bottle(x, y));
         }
     }
 
@@ -156,5 +243,11 @@ export class World {
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
+    }
+
+    clearOldEnemies() {
+        this.level.enemies = this.level.enemies.filter((enemy) => {
+            return enemy.x > -100 && enemy.y > -500;
+        });
     }
 }

@@ -116,10 +116,6 @@ export class ImageHub {
             "img/4_enemie_boss_chicken/2_alert/G10.png",
             "img/4_enemie_boss_chicken/2_alert/G11.png",
             "img/4_enemie_boss_chicken/2_alert/G12.png",
-            "img/4_enemie_boss_chicken/2_alert/G13.png",
-            "img/4_enemie_boss_chicken/2_alert/G14.png",
-            "img/4_enemie_boss_chicken/2_alert/G15.png",
-            "img/4_enemie_boss_chicken/2_alert/G16.png",
         ],
         attack: [
             "img/4_enemie_boss_chicken/3_attack/G13.png",
@@ -200,7 +196,7 @@ export class ImageHub {
 
         onground: [
             "img/6_salsa_bottle/1_salsa_bottle_on_ground.png",
-            "img/6_salsa_bottle/1_salsa_bottle_on_ground.png",
+            "img/6_salsa_bottle/2_salsa_bottle_on_ground.png",
         ]
     }
 }

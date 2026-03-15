@@ -65,8 +65,8 @@ export class MovableObject extends DrawableObject {
         );
     }
 
-    hit() {
-        this.energy -= 2;
+    hit(damage = 2) {
+        this.energy -= damage;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
