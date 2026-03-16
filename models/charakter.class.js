@@ -10,6 +10,7 @@ export class Character extends MovableObject {
     width = 150;
     speed = 10;
     world;
+    lastActionTime = new Date().getTime();
 
     constructor() {
         super();
@@ -32,6 +33,7 @@ export class Character extends MovableObject {
         this.loadImages(ImageHub.CHARACTER.walk);
         this.loadImages(ImageHub.CHARACTER.jump);
         this.loadImages(ImageHub.CHARACTER.idle);
+        this.loadImages(ImageHub.CHARACTER.long_idle);
         this.loadImages(ImageHub.CHARACTER.hurt);
         this.loadImages(ImageHub.CHARACTER.dead);
     }
@@ -39,6 +41,9 @@ export class Character extends MovableObject {
     // Logik für die Bewegung
     moveCharacter = () => {
         // Rechts rum
+        if (Keyboard.RIGHT || Keyboard.LEFT || Keyboard.SPACE || Keyboard.D) {
+            this.lastActionTime = new Date().getTime();
+        }
         if (Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
@@ -69,7 +74,17 @@ export class Character extends MovableObject {
         } else if (Keyboard.RIGHT || Keyboard.LEFT) {
             this.playAnimation(ImageHub.CHARACTER.walk);
         } else {
-            this.playAnimation(ImageHub.CHARACTER.idle);
+            this.playIdleAnimations();
         }
     };
+
+    playIdleAnimations() {
+        let timePassed = new Date().getTime() - this.lastActionTime;
+
+        if (timePassed > 15000) {
+            this.playAnimation(ImageHub.CHARACTER.long_idle);
+        } else {
+            this.playAnimation(ImageHub.CHARACTER.idle);
+        }
+    }
 }

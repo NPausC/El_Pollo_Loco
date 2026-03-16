@@ -13,6 +13,7 @@ import { Bottle } from "./bottle.class.js";
 import { EndbossBar } from "./endboss-bar.class.js";
 import { Coin } from "./coin.class.js";
 import { CoinBar } from "./coin-bar.class.js";
+import { EndScreen } from "./endscreen.class.js";
 
 export class World {
     character = new Character();
@@ -30,6 +31,7 @@ export class World {
     ctx;
     keyboard = Keyboard;
     camera_x = 0;
+    gameOverScreen = null;
 
     constructor(canvas, level) {
         this.ctx = canvas.getContext("2d");
@@ -44,6 +46,7 @@ export class World {
             this.checkBottleCollisions();
             this.checkBottleBossCollisions();
             this.checkCoinCollisions();
+            this.checkGameOver();
         }, 100);
 
         this.spawnRandomChicken();
@@ -79,6 +82,14 @@ export class World {
         this.addToMap(this.bottleBar);
         this.addToMap(this.endbossBar);
         this.addToMap(this.coinBar);
+
+        if (this.statusScreen) {
+            this.addToMap(this.statusScreen);
+        }
+
+        if (this.gameOverScreen) {
+            this.addToMap(this.gameOverScreen);
+        }
 
         let self = this;
         requestAnimationFrame(function () {
@@ -188,6 +199,22 @@ export class World {
                 }
             }
         });
+    }
+
+    checkGameOver() {
+        if (
+            this.character.isDead() &&
+            !this.statusScreen &&
+            !this.gameOverScreen
+        ) {
+            IntervalHub.stopAllIntervals();
+
+            this.statusScreen = new EndScreen("lost");
+            setTimeout(() => {
+                this.statusScreen = null;
+                this.gameOverScreen = new EndScreen("game_over");
+            }, 5000);
+        }
     }
 
     spawnChicken() {

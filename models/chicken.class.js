@@ -13,6 +13,12 @@ export class Chicken extends MovableObject {
         this.isDead = false;
         this.loadImage(ImageHub.CHICKEN.normal_walk[0]);
         this.loadImages(ImageHub.CHICKEN.normal_walk);
+        this.offset = {
+            top: 20,
+            left: 10,
+            right: 10,
+            bottom: 20,
+        };
 
         if (x !== undefined) {
             this.x = x;

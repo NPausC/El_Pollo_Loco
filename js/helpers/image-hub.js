@@ -13,16 +13,16 @@ export class ImageHub {
             "img/2_character_pepe/1_idle/idle/I-10.png",
         ],
         long_idle: [
-            "img/2_character_pepe/1_idle/idle/I-11.png",
-            "img/2_character_pepe/1_idle/idle/I-12.png",
-            "img/2_character_pepe/1_idle/idle/I-13.png",
-            "img/2_character_pepe/1_idle/idle/I-14.png",
-            "img/2_character_pepe/1_idle/idle/I-15.png",
-            "img/2_character_pepe/1_idle/idle/I-16.png",
-            "img/2_character_pepe/1_idle/idle/I-17.png",
-            "img/2_character_pepe/1_idle/idle/I-18.png",
-            "img/2_character_pepe/1_idle/idle/I-19.png",
-            "img/2_character_pepe/1_idle/idle/I-20.png",
+            "img/2_character_pepe/1_idle/long_idle/I-11.png",
+            "img/2_character_pepe/1_idle/long_idle/I-12.png",
+            "img/2_character_pepe/1_idle/long_idle/I-13.png",
+            "img/2_character_pepe/1_idle/long_idle/I-14.png",
+            "img/2_character_pepe/1_idle/long_idle/I-15.png",
+            "img/2_character_pepe/1_idle/long_idle/I-16.png",
+            "img/2_character_pepe/1_idle/long_idle/I-17.png",
+            "img/2_character_pepe/1_idle/long_idle/I-18.png",
+            "img/2_character_pepe/1_idle/long_idle/I-19.png",
+            "img/2_character_pepe/1_idle/long_idle/I-20.png",
         ],
         walk: [
             "img/2_character_pepe/2_walk/W-21.png",
@@ -175,7 +175,7 @@ export class ImageHub {
             "img/7_statusbars/2_statusbar_endboss/blue/blue80.png",
             "img/7_statusbars/2_statusbar_endboss/blue/blue100.png",
         ],
-    }
+    };
 
     static BOTTLE = {
         rotation: [
@@ -206,13 +206,31 @@ export class ImageHub {
             "img/7_statusbars/2_statusbar_endboss/orange/orange80.png",
             "img/7_statusbars/2_statusbar_endboss/orange/orange100.png",
         ],
-    }
+    };
 
     static COIN = {
+        coin: ["img/8_coin/coin_1.png", "img/8_coin/coin_2.png"],
+    };
 
-        coin: [
-            "img/8_coin/coin_1.png",
-            "img/8_coin/coin_2.png",
-        ]
-    }
+    static YWYL = {
+        game_over: [
+            "img/You won, you lost/Game over A.png",
+            "img/You won, you lost/Game over.png",
+        ],
+
+        you_lost: [
+            "img/You won, you lost/You lost b.png",
+            "img/You won, you lost/You lost.png",
+        ],
+
+        you_win: [
+            "img/You won, you lost/You Win A.png",
+            "img/You won, you lost/You Win B.png",
+        ],
+
+        you_won: [
+            "img/You won, you lost/You won A.png",
+            "img/You won, you lost/You won B.png",
+        ],
+    };
 }
