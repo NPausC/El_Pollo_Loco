@@ -1,5 +1,4 @@
 import { MovableObject } from "./movable-objects.class.js";
-import { World } from "./world.class.js";
 
 export class BackgroundObject extends MovableObject {
     width = 720;

@@ -2,8 +2,8 @@ import { DrawableObject } from "./drawable-object.class.js";
 import { ImageHub } from "../js/helpers/image-hub.js";
 
 export class EndScreen extends DrawableObject {
-    width = 400;
-    height = 300;
+    width = 300;
+    height = 200;
 
     constructor(type) {
         super();
@@ -12,6 +12,8 @@ export class EndScreen extends DrawableObject {
 
         if (type === "lost") {
             this.loadImage(ImageHub.YWYL.you_lost[0]);
+        } else if (type === "win") {
+            this.loadImage(ImageHub.YWYL.you_win[0]);
         } else if (type === "game_over") {
             this.loadImage(ImageHub.YWYL.game_over[0]);
         }

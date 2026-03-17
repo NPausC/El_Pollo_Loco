@@ -1,4 +1,4 @@
-import { BackgroundObject } from "./background-object.class.js";
+
 import { DrawableObject } from "./drawable-object.class.js";
 
 export class MovableObject extends DrawableObject {

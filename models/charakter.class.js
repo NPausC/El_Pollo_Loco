@@ -23,7 +23,6 @@ export class Character extends MovableObject {
             bottom: 10,
         };
 
-        // Trennung der Bewegung und Animation in zwei Intervalle
         IntervalHub.startInterval(() => this.moveCharacter(), 1000 / 60);
         IntervalHub.startInterval(() => this.animateCharacter(), 100);
     }
@@ -38,9 +37,7 @@ export class Character extends MovableObject {
         this.loadImages(ImageHub.CHARACTER.dead);
     }
 
-    // Logik für die Bewegung
     moveCharacter = () => {
-        // Rechts rum
         if (Keyboard.RIGHT || Keyboard.LEFT || Keyboard.SPACE || Keyboard.D) {
             this.lastActionTime = new Date().getTime();
         }
@@ -49,18 +46,15 @@ export class Character extends MovableObject {
             this.otherDirection = false;
         }
 
-        // Links rum
         if (Keyboard.LEFT && this.x > 0) {
             this.moveLeft();
             this.otherDirection = true;
         }
 
-        // springen
         if (Keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
         }
 
-        // Kamera folgt dem Charakter
         this.world.camera_x = -this.x + 100;
     };
 

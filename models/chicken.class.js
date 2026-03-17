@@ -7,6 +7,8 @@ export class Chicken extends MovableObject {
     y = 330;
     height = 100;
     width = 100;
+    IMAGES_WALK = ImageHub.CHICKEN.normal_walk;
+    IMAGES_DEAD = ImageHub.CHICKEN.normal_dead;
 
     constructor(x) {
         super();
@@ -31,11 +33,11 @@ export class Chicken extends MovableObject {
         IntervalHub.startInterval(() => this.move(), 1000 / 60);
     }
 
-    animate = () => {
+animate = () => {
         if (!this.isDead) {
-            this.playAnimation(ImageHub.CHICKEN.normal_walk);
+            this.playAnimation(this.IMAGES_WALK);
         } else {
-            this.loadImage(ImageHub.CHICKEN.normal_dead[0]);
+            this.loadImage(this.IMAGES_DEAD[0]);
         }
     };
 
